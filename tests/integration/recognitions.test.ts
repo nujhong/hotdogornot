@@ -21,7 +21,7 @@ const app = new Hono<CloudEnv>()
 const answer = (noul: number) =>
   Response.json({
     success: true,
-    result: { state: "Completed", result: { answers: { matchesTarget: { type: "noul", noul } } } },
+    result: { model: "clef-flash", answers: { matchesTarget: { type: "noul", noul } } },
   });
 const input = { targetName: "  mug  ", imageBase64: "YQ==" };
 const submit = (body: unknown = input) =>
@@ -101,7 +101,7 @@ describe("POST /api/recognitions", () => {
       request.mockResolvedValue(new Response("secret upstream payload", { status: 500 }));
     else
       request.mockResolvedValue(
-        Response.json({ success: true, result: { state: "Completed", result: { answers: {} } } }),
+        Response.json({ success: true, result: { model: "clef-flash", answers: {} } }),
       );
     const response = await submit();
     expect(response.status).toBe(502);

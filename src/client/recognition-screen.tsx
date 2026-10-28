@@ -151,9 +151,9 @@ export function RecognitionScreen() {
         <details className="photo-info">
           <summary aria-label="About your photos">i</summary>
           <p>
-            Photos and object names are sent to Cloudflare and TypeSafe to check the subject. This
-            app keeps only the current photo in memory and saves no history. Provider processing
-            policies apply. Recognition is experimental and can be wrong.
+            Photos and object names are sent to Cloudflare to check the subject. This app keeps only
+            the current photo in memory and saves no history. Provider processing policies apply.
+            Recognition is experimental and can be wrong.
           </p>
         </details>
       </header>
@@ -265,7 +265,7 @@ export function RecognitionScreen() {
           <p className="input-error">Enter an object name to take a photo.</p>
         )}
         {camera.status !== "ready" && !capture && !busy && (
-          <p className="processing-note">Photos are processed by Cloudflare &amp; TypeSafe.</p>
+          <p className="processing-note">Photos are processed by Cloudflare.</p>
         )}
       </div>
     </main>

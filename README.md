@@ -18,13 +18,15 @@ cp env.example .env
 pnpm run dev
 ```
 
-Open **http://127.0.0.1:5174**. The separate port allows HashtagConnect to run alongside it. The interface and mocked tests work without Cloudflare credentials; real recognition needs the setup below.
+Open **http://127.0.0.1:5174**. The separate port allows HashtagConnect to run alongside it. Copy `env.example` before starting. Automated tests mock the provider; real recognition needs the setup below.
 
 ### Enable recognition
 
 Fill the three server-side values in `.env`: `CLOUDFLARE_ACCOUNT_ID`, `CLOUDFLARE_AI_GATEWAY_ID`, and `CLOUDFLARE_AI_GATEWAY_TOKEN`. Use a Cloudflare account with an AI Gateway and a token authorized for its Workers AI inference. Use this app’s own `hotdogornot-ai` gateway and inference token in your personal account. Restart the development server after changing configuration.
 
-Recognition uses Cloudflare's HTTP API with the existing token, so local inference does not require a separate browser sign-in. Deployment is a separate step using Void's Cloudflare deployment workflow and suitable deployment credentials. Local configuration is ignored by Git; never commit real credentials.
+Recognition uses Cloudflare's HTTP API with the existing token, so local inference does not require a separate browser sign-in. Deployment is a separate step using Void's Cloudflare deployment workflow and suitable deployment credentials. Local configuration is ignored by Git; never commit real credentials. Set each deployed value with `void secret put <NAME>` and verify names with `void secret list`; the installed Void 1.2.1 bulk-sync command is incompatible with the Cloudflare CLI’s request shape.
+
+Clef-flash uses the account’s shared Workers AI allowance, currently [10,000 Neurons per day](https://developers.cloudflare.com/workers-ai/platform/pricing/). It does not require third-party gateway credit.
 
 Camera access requires HTTPS or a permitted localhost origin. A phone visiting your computer's plain HTTP LAN address cannot use its camera; use an HTTPS development origin for device testing.
 
@@ -40,9 +42,9 @@ CI runs the same commands with a frozen dependency lockfile. Tests exercise cont
 
 ## Photos and limitations
 
-The current photo stays in browser memory until retaken or the page closes. The app has no accounts, saved gallery, or recognition history. Each check sends the prepared JPEG and chosen object name through Cloudflare to TypeSafe's Jev model. Gateway caching and request logging are disabled for these calls; those settings do not establish zero retention at the provider or control an independently configured Logpush export.
+The current photo stays in browser memory until retaken or the page closes. The app has no accounts, saved gallery, or recognition history. Each check sends the prepared JPEG and chosen object name to Cloudflare’s Clef-flash model. Gateway caching, request logging and Logpush are disabled for this deployment. Cloudflare’s [Workers AI data policy](https://developers.cloudflare.com/workers-ai/platform/data-usage/) describes provider processing.
 
-[Jev image support is experimental](https://developers.cloudflare.com/ai/models/typesafe/jev-1.14.0/), and recognition can be wrong. The app converts the model's Noul answer to a binary result at 0.5, including an exact tie as a match. It does not display an accuracy percentage. See the [research](docs/research/object-recognition.md) and [verification record](docs/verification.md) for evidence and outstanding checks.
+[Clef-flash](https://developers.cloudflare.com/workers-ai/models/clef-flash/) uses Jev-style structured questions. Recognition can be wrong. The app converts the model's Noul answer to a binary result at 0.5, including an exact tie as a match. It does not display an accuracy percentage. See the [research](docs/research/object-recognition.md) and [verification record](docs/verification.md) for evidence and outstanding checks.
 
 ## Contribute
 

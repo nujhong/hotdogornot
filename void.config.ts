@@ -8,6 +8,9 @@ export default defineConfig({
   cloudflare: {
     name: "hotdogornot",
     account_id: "ac6ec0b998d8eb9a92746d8dd276bdf0",
+    workers_dev: true,
+    preview_urls: true,
+    routes: [],
     observability: { enabled: true, traces: { enabled: true } },
   },
   head: {

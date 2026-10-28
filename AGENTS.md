@@ -14,6 +14,11 @@
 - Before adding complexity for a speculative or very unlikely race or security case, explain the concrete failure, likelihood, and complexity cost and obtain the owner's agreement.
 - Trust documented library contracts. Use each library's native interface before writing an adapter.
 
+## General principles
+
+- Treat leading questions as open questions and verify their premise independently.
+- Challenge assumptions when evidence warrants it. Explain evidence and uncertainty without inventing objections.
+
 ## Structure
 
 - Keep Void entries thin: `src/pages` composes UI; `src/routes` owns HTTP; `src/middleware` owns request middleware.
