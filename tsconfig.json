@@ -1,0 +1,21 @@
+{
+  "extends": "./.void/tsconfig.json",
+  "compilerOptions": {
+    "target": "ES2022",
+    "module": "ESNext",
+    "moduleResolution": "bundler",
+    "strict": true,
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "allowImportingTsExtensions": true,
+    "types": ["void/env", "vite/client", "node"],
+    "jsx": "react-jsx",
+    "paths": {
+      "void/routes": ["./.void/routes.d.ts"],
+      "void/queues": ["./.void/queues.d.ts"],
+      "~/*": ["./src/*"]
+    },
+    "noEmit": true
+  },
+  "include": ["src", "tests", "void.config.ts", "vite.config.ts"]
+}
