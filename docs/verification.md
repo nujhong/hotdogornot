@@ -12,7 +12,7 @@ Recorded 28 October 2026. Mocked tests establish application behavior, not recog
 | Physical phone / camera capture | Not exercised; camera behavior is covered by mocked tests only.                                                                                                                                                                                |
 | Broad recognition quality       | Not established by this small sample.                                                                                                                                                                                                          |
 
-The production preview returned HTTP 200, served built assets, and hydrated successfully. Object editing, blank-name validation, and the photo disclosure worked without console warnings/errors. Its API rejected an empty request with HTTP 400. The local preview process was stopped after verification; the development preview remains running.
+The production preview returned HTTP 200, served built assets, and hydrated successfully. Object editing, blank-name validation, and the photo disclosure worked without console warnings/errors. Its API rejected an empty request with HTTP 400. The local preview process was stopped after verification; the development preview was stopped for the canonical directory rename.
 
 ## Live endpoint observations
 
@@ -41,3 +41,7 @@ The suite covers names and image limits; valid, missing, malformed, and boundary
 ## Remaining device verification
 
 Exercise real desktop and phone cameras, including permission denial/recovery, orientation, editing after a result, 200% browser zoom, screen-reader announcements, and camera shutdown on capture and exit. An ambiguous photo and additional foreground/background examples remain useful follow-up checks. These are uncompleted device/quality checks, not passing results.
+
+## Personal deployment
+
+The `hotdogornot` Worker was deployed to the personal account at https://hotdogornot.nujhong.workers.dev. It uses the `hotdogornot-ai` gateway and a separate account-scoped inference token. The personal-account JEv smoke request returned HTTP 402 (insufficient gateway balance), so the earlier successful model observations do not establish working inference on this deployment. Phone camera testing remains outstanding.

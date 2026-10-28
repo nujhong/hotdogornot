@@ -1,0 +1,25 @@
+{
+  "version": 1,
+  "source": {
+    "name": "hotdogornot",
+    "account_id": "ac6ec0b998d8eb9a92746d8dd276bdf0",
+    "observability": {
+      "enabled": true,
+      "traces": {
+        "enabled": true
+      }
+    }
+  },
+  "resolved": {
+    "name": "hotdogornot",
+    "account_id": "ac6ec0b998d8eb9a92746d8dd276bdf0",
+    "observability": {
+      "enabled": true,
+      "traces": {
+        "enabled": true
+      }
+    },
+    "compatibility_date": "2026-02-24"
+  },
+  "text": "{\n  \"name\": \"hotdogornot\",\n  \"account_id\": \"ac6ec0b998d8eb9a92746d8dd276bdf0\",\n  \"observability\": {\n    \"enabled\": true,\n    \"traces\": {\n      \"enabled\": true\n    }\n  },\n  \"compatibility_date\": \"2026-02-24\"\n}\n"
+}

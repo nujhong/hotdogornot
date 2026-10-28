@@ -21,9 +21,9 @@ The screen snapshots the trimmed target and camera frame together, releases the 
 
 The shared schema bounds names to 80 characters, decoded images to 2 MiB, and middleware bounds the JSON body to 3 MiB before parsing. Canvas exports an upright JPEG with the whole frame, at most 1280 on its longest side, padding small dimensions to 280.
 
-The route owns the 20-second provider deadline. The server uses native `fetch` against Cloudflare's Workers AI HTTP endpoint, following HashtagConnect's existing account, gateway, and token configuration. Jev receives one image asset and one Noul main-subject question. The completed response envelope was confirmed with a real provider call. Only finite values from zero through one are valid; values at least 0.5 match. Missing or malformed output is an error, never a negative verdict.
+The route owns the 20-second provider deadline. The server uses native `fetch` against Cloudflare's Workers AI HTTP endpoint, using the personal account and the app's own gateway and inference token. Jev receives one image asset and one Noul main-subject question. The completed response envelope was confirmed with a real provider call. Only finite values from zero through one are valid; values at least 0.5 match. Missing or malformed output is an error, never a negative verdict.
 
-This transport is intentional: the existing inference token is valid but cannot list Cloudflare accounts, which Void's native binding setup requires. Reusing the working HTTP configuration avoids expanding the token's permissions or introducing another login. Void still owns routing, typed client calls, environment access, and the Worker build.
+Cloudflare’s native HTTP API carries the experimental image header and the provider deadline. The runtime inference token is scoped to Workers AI invocation and AI Gateway execution in the personal account. Deployment credentials remain separate.
 
 The route returns 400 for invalid input, 413 for an excessive body, native 429 for a usage limit, 503 for missing configuration, 504 for the deadline, and 502 for provider/output failure. The browser waits at most 25 seconds and does not retry automatically.
 

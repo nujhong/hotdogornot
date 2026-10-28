@@ -1,13 +1,13 @@
 {
-  "name": "hotdog-or-not",
+  "name": "hotdogornot",
   "version": "0.1.0",
   "private": true,
   "bugs": {
-    "url": "https://github.com/nujhong/hotdog-or-not/issues"
+    "url": "https://github.com/nujhong/hotdogornot/issues"
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/nujhong/hotdog-or-not.git"
+    "url": "https://github.com/nujhong/hotdogornot.git"
   },
   "type": "module",
   "scripts": {

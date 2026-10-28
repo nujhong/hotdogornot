@@ -6,7 +6,8 @@ export default defineConfig({
   // Match the sibling's date supported by the locked local Workers runtime.
   worker: { compatibility_date: "2026-10-25", compatibility_flags: ["nodejs_compat"] },
   cloudflare: {
-    name: "hotdog-or-not",
+    name: "hotdogornot",
+    account_id: "ac6ec0b998d8eb9a92746d8dd276bdf0",
     observability: { enabled: true, traces: { enabled: true } },
   },
   head: {

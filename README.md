@@ -2,6 +2,8 @@
 
 Name an object. Take a photo. Get a yes or a no.
 
+[Open the app](https://hotdogornot.nujhong.workers.dev).
+
 A personal hobby app inspired by the original _Silicon Valley_ gag, with one extra trick: change “hotdog” to any object name. It judges the main photographed subject, not incidental objects in the background. Every completed check is binary; a failed request remains an error.
 
 Built with the same Void, React, TypeScript, Vite+, pnpm, and Cloudflare foundation as HashtagConnect. The source is organized around browser, server, shared-contract, and framework-entry responsibilities, with enforced filename and import conventions.
@@ -20,7 +22,7 @@ Open **http://127.0.0.1:5174**. The separate port allows HashtagConnect to run a
 
 ### Enable recognition
 
-Fill the three server-side values in `.env`: `CLOUDFLARE_ACCOUNT_ID`, `CLOUDFLARE_AI_GATEWAY_ID`, and `CLOUDFLARE_AI_GATEWAY_TOKEN`. Use a Cloudflare account with an AI Gateway and a token authorized for its Workers AI inference. An existing HashtagConnect configuration can supply these same values. Restart the development server after changing configuration.
+Fill the three server-side values in `.env`: `CLOUDFLARE_ACCOUNT_ID`, `CLOUDFLARE_AI_GATEWAY_ID`, and `CLOUDFLARE_AI_GATEWAY_TOKEN`. Use a Cloudflare account with an AI Gateway and a token authorized for its Workers AI inference. Use this app’s own `hotdogornot-ai` gateway and inference token in your personal account. Restart the development server after changing configuration.
 
 Recognition uses Cloudflare's HTTP API with the existing token, so local inference does not require a separate browser sign-in. Deployment is a separate step using Void's Cloudflare deployment workflow and suitable deployment credentials. Local configuration is ignored by Git; never commit real credentials.
 
@@ -46,4 +48,4 @@ The current photo stays in browser memory until retaken or the page closes. The 
 
 Start with [CONTRIBUTING.md](CONTRIBUTING.md) and [architecture](docs/architecture.md). [AGENTS.md](AGENTS.md) gives coding agents the same rules. The [design](docs/designs/recognition.md) records the agreed behavior and implementation rationale.
 
-“Hotdog or Not” is the working name. The source is published at [nujhong/hotdog-or-not](https://github.com/nujhong/hotdog-or-not). A license has not yet been selected. No affiliation with the television series is implied.
+“Hotdog or Not” is the display name; `hotdogornot` is the repository and Worker name. The source is published at [nujhong/hotdogornot](https://github.com/nujhong/hotdogornot). A license has not yet been selected. No affiliation with the television series is implied.
