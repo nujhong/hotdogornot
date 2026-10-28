@@ -1,5 +1,5 @@
 <div align="center">
-  <img src="docs/assets/logo.svg" width="72" height="72" alt="">
+  <img src="public/logo.svg" width="72" height="72" alt="">
   <h1>hotdogornot</h1>
   <p><strong>One photo. Two possible answers.</strong></p>
   <p>Hotdog or not. Mug or not. You pick the object.</p>
@@ -24,9 +24,9 @@ Inspired by _Silicon Valley_'s hotdog-or-not gag, with one extra trick: you choo
 
 ## How it works
 
-| ✏️ Name it                                                  | 📷 Frame it                                                             | ✓ Get the verdict                                                                    |
-| :---------------------------------------------------------- | :---------------------------------------------------------------------- | :----------------------------------------------------------------------------------- |
-| Keep **hotdog**, or type another object in **Looking for**. | Open the camera, fill the frame with your subject, and tap the shutter. | Get **hotdog** or **Not hotdog**, right on your photo. Change the name and go again. |
+| ✏️ Name it                                                  | 📷 Frame it                                                                 | ✓ Get the verdict                                                                    |
+| :---------------------------------------------------------- | :-------------------------------------------------------------------------- | :----------------------------------------------------------------------------------- |
+| Keep **hotdog**, or type another object in **Looking for**. | Allow camera access, fill the frame with your subject, and tap the shutter. | Get **hotdog** or **Not hotdog**, right on your photo. Change the name and go again. |
 
 The camera fills the screen. Each tap checks one photo against one name. The answer concerns the main subject; a mug sitting in the background doesn't make a laptop a mug.
 

@@ -29,12 +29,12 @@ beforeEach(() => {
 });
 afterEach(cleanup);
 
-it("starts with hotdog and waits for an explicit camera action", () => {
-  camera.status = "idle";
+it("starts with hotdog and waits for camera permission before allowing a photo", () => {
+  camera.status = "starting";
   render(<RecognitionScreen />);
   expect(screen.getByLabelText("Looking for")).toHaveProperty("value", "hotdog");
-  expect(screen.getByRole("button", { name: /Open camera/ })).toBeTruthy();
-  expect(camera.start).not.toHaveBeenCalled();
+  expect(screen.getByRole("button", { name: "Opening camera" })).toHaveProperty("disabled", true);
+  expect(captureImage).not.toHaveBeenCalled();
   expect(api).not.toHaveBeenCalled();
 });
 

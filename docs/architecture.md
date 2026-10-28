@@ -2,6 +2,8 @@
 
 One React screen captures one photo for one object name. Void serves the screen and a synchronous recognition endpoint on Cloudflare Workers. There is no persistence or queue.
 
+The camera hook requests video access when the screen mounts, using the browser's native permission flow. It releases media on capture or exit and ignores late permission results after cleanup. The shutter starts each photo check; opening the camera does not submit a photo.
+
 ## Ownership
 
 | Area       | Responsibility                                            | Application dependencies |

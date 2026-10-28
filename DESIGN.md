@@ -9,7 +9,7 @@ One photo, one object name, one binary answer. The whole experience revolves aro
 ## Brand
 
 - The repository name is **hotdogornot**. The app wordmark reads **hotdog or not.**, with a lime full stop.
-- The mark combines a hotdog with camera framing. Keep it simple enough to read at icon size.
+- The mark combines a hotdog with camera framing. Use the same asset in the app header, browser tab and README.
 - The tone is playful and direct. The joke comes from the question and answer; the controls stay familiar.
 
 ## Colour and type
@@ -26,9 +26,9 @@ Use the existing sans-serif stack. The object name and verdict carry the stronge
 ## Camera and controls
 
 - The viewfinder fills the viewport. Preserve the full camera frame and captured photo, with letterboxing when needed.
-- Float the small wordmark and photo disclosure at the top. Centre the editable **Looking for** field below them.
+- Float the small logo, wordmark and photo disclosure at the top. Centre the editable **Looking for** field below them.
 - Put the circular shutter near the bottom, within easy thumb reach and clear of the device's safe area.
-- Ask for camera access when the user chooses **Open camera**. Show a short recovery message if access fails.
+- Request camera access when the app opens. The browser owns the permission prompt; show a short recovery message and **Try camera again** if access fails. Capture and recognition still require the shutter.
 - Keep the image visible while checking. Disable the shutter and name field until the check finishes.
 - Show the verdict directly over that captured photo: **hotdog** or **Not hotdog**, using the captured object name. Editing the name afterward must never relabel an old result.
 - **Take another photo** returns to the camera. A failed check offers a retry for the same photo and name.

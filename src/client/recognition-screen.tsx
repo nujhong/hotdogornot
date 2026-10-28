@@ -146,7 +146,10 @@ export function RecognitionScreen() {
 
       <header className="camera-header">
         <a className="wordmark" href="/" aria-label="Hotdog or Not home">
-          hotdog or not<span>.</span>
+          <img src="/logo.svg" width="36" height="36" alt="" />
+          <span className="wordmark-text">
+            hotdog or not<span>.</span>
+          </span>
         </a>
         <details className="photo-info">
           <summary aria-label="About your photos">i</summary>
@@ -243,9 +246,11 @@ export function RecognitionScreen() {
               aria-label={
                 camera.status === "ready"
                   ? "Take photo"
-                  : camera.status === "error"
-                    ? "Try camera again"
-                    : "Open camera"
+                  : camera.status === "starting"
+                    ? "Opening camera"
+                    : camera.status === "error"
+                      ? "Try camera again"
+                      : "Open camera"
               }
             >
               <span />

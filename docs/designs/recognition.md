@@ -1,5 +1,7 @@
 # Hotdog or Not
 
+> **Camera update — 28 October 2026:** The owner requested camera access on opening the app. The hook now starts the native permission flow on mount; the shutter still triggers capture and inference. This supersedes the earlier explicit camera-start step below. The app header, favicon and README share the same logo.
+
 > **Implementation update — 28 October 2026:** The personal deployment now uses Cloudflare-hosted `@cf/cloudflare/clef-flash`, with Jev-style Noul decisions and the same binary threshold. Requests use the native model-specific HTTP endpoint, `images` plus separate target state, and `result.answers`; the earlier Jev/experimental-header and `void/ai` details below record the original design and are superseded by this update. Gateway logging/cache are disabled. The current architecture and verification documents describe the shipped integration. No third-party gateway credit is needed; usage shares the account’s daily Workers AI allowance.
 
 - **Author:** Project owner, assisted by Codex

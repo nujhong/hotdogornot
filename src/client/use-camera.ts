@@ -71,6 +71,9 @@ export function useCamera() {
     }
   }, [release]);
 
-  useEffect(() => release, [release]);
+  useEffect(() => {
+    void start();
+    return release;
+  }, [start, release]);
   return { videoRef, ...state, start, stop };
 }

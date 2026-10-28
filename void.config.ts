@@ -16,6 +16,7 @@ export default defineConfig({
   head: {
     title: "Hotdog or Not — one photo, one answer",
     htmlAttrs: { lang: "en" },
+    link: [{ rel: "icon", href: "/logo.svg" }],
     meta: [
       { name: "viewport", content: "width=device-width, initial-scale=1" },
       { name: "description", content: "Name an object. Take a photo. Get a yes or a no." },

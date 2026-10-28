@@ -34,7 +34,7 @@ Temporary violations confirmed that wrong filename case, client-to-server import
 
 ## Automated coverage
 
-The suite covers names and image limits; valid, missing, malformed, and boundary model answers; HTTP rejection before inference; rate limits, timeouts, and provider failures; full-frame resizing; denied camera access and media cleanup; capture/name association; explicit retry; and retake. Provider and browser media APIs are mocked in these tests.
+The suite covers names and image limits; valid, missing, malformed, and boundary model answers; HTTP rejection before inference; rate limits, timeouts, and provider failures; full-frame resizing; automatic camera access on mount, denied access and media cleanup; capture/name association; explicit retry; and retake. Provider and browser media APIs are mocked in these tests.
 
 ## Remaining device verification
 
@@ -47,3 +47,9 @@ The `hotdogornot` Worker is live at [hotdogornot.nujhong.workers.dev](https://ho
 The earlier JEv integration required prepaid gateway credit on this account and returned HTTP 402. Clef-flash replaces that model and uses the shared Workers AI allowance. Void 1.2.1 bulk secret sync reported success without writing values because of its Cloudflare CLI request shape; the secrets were applied with Cloudflare’s native bulk command and confirmed by name. Required server environment declarations ensure later deployments inherit them.
 
 Physical phone camera testing remains outstanding; no camera was activated during automated verification.
+
+## Logo and camera startup
+
+The app header, favicon and README use one shared SVG logo. The built local page loaded the 128px asset at 36px in the desktop header, used the same URL for its favicon, and had no horizontal overflow at a 1024px viewport. It entered “Opening camera” on load without a click.
+
+All 43 tests still pass, including immediate camera requests, denied-access recovery, stop/unmount cleanup and late permission resolution. The pending-permission screen keeps capture disabled and makes no recognition request. The native permission dialog and physical camera capture remain device checks; no camera access was granted during this browser verification.

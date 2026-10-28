@@ -75,13 +75,22 @@ button:disabled {
   padding: max(24px, env(safe-area-inset-top)) 28px 0;
 }
 .wordmark {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
   color: #fff;
   text-decoration: none;
   font-size: 20px;
   font-weight: 800;
   letter-spacing: -0.7px;
 }
-.wordmark span {
+.wordmark img {
+  flex: none;
+}
+.wordmark-text {
+  white-space: nowrap;
+}
+.wordmark-text > span {
   color: var(--accent);
 }
 .photo-info {
@@ -403,7 +412,12 @@ button:disabled {
     padding: max(20px, env(safe-area-inset-top)) 20px 0;
   }
   .wordmark {
+    gap: 8px;
     font-size: 18px;
+  }
+  .wordmark img {
+    width: 32px;
+    height: 32px;
   }
   .target-control {
     width: min(280px, calc(100% - 72px));
