@@ -13,7 +13,7 @@ const options = {
 const answer = (noul: unknown) =>
   Response.json({
     success: true,
-    result: { state: "Completed", result: { answers: { matchesTarget: { type: "noul", noul } } } },
+    result: { model: "clef-flash", answers: { matchesTarget: { type: "noul", noul } } },
   });
 
 beforeEach(() => {
@@ -54,12 +54,13 @@ describe("main-subject evaluation", () => {
     await recognizeSubject(input, options);
     expect(request).toHaveBeenCalledOnce();
     const [url, settings] = request.mock.calls[0];
-    expect(url).toBe("https://api.cloudflare.com/client/v4/accounts/test-account/ai/run");
+    expect(url).toBe(
+      "https://api.cloudflare.com/client/v4/accounts/test-account/ai/run/@cf/cloudflare/clef-flash",
+    );
     expect(settings).toMatchObject({
       signal: options.signal,
       headers: {
         Authorization: "Bearer test-token",
-        "TypeSafe-Danger-Zone-Images": "true",
         "cf-aig-gateway-id": "test-gateway",
         "cf-aig-collect-log": "false",
         "cf-aig-skip-cache": "true",
@@ -69,22 +70,19 @@ describe("main-subject evaluation", () => {
     if (typeof settings?.body !== "string") throw new Error("Expected a JSON request body");
     const payload = JSON.parse(settings.body) as {
       model: string;
-      input: { state: { photo: string; targetName: string }; assets: Record<string, unknown> };
+      state: { targetName: string };
+      images: { content_type: string; base64: string }[];
     };
-    expect(payload.model).toBe("typesafe/jev-1.14.0");
-    expect(payload.input.state.targetName).toBe("coffee mug");
-    expect(payload.input.assets[payload.input.state.photo]).toEqual({
-      type: "image",
-      format: "jpg",
-      data_base64: "YQ==",
-    });
+    expect(payload.model).toBe("clef-flash");
+    expect(payload.state.targetName).toBe("coffee mug");
+    expect(payload.images).toEqual([{ content_type: "image/jpeg", base64: "YQ==" }]);
   });
   it("maps provider limits to the native framework limit", async () => {
     request.mockResolvedValue(new Response("private upstream detail", { status: 429 }));
     await expect(recognizeSubject(input, options)).rejects.toBeInstanceOf(UsageLimit);
   });
-  it.each(["Failed", "Running"])("rejects an unfinished provider run: %s", async (state) => {
-    request.mockResolvedValue(Response.json({ success: true, result: { state } }));
+  it("rejects a failed provider envelope", async () => {
+    request.mockResolvedValue(Response.json({ success: false, result: { answers: {} } }));
     await expect(recognizeSubject(input, options)).rejects.toThrow();
   });
 });

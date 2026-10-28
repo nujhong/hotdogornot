@@ -27,10 +27,9 @@ beforeEach(() => {
 });
 afterEach(cleanup);
 
-it("activates explicitly and releases tracks on stop and unmount", async () => {
+it("requests camera access on mount and releases tracks on stop and unmount", async () => {
   const view = render(<CameraHarness />);
-  expect(getUserMedia).not.toHaveBeenCalled();
-  fireEvent.click(screen.getByText("Start"));
+  expect(getUserMedia).toHaveBeenCalledOnce();
   await screen.findByText("ready");
   expect(getUserMedia).toHaveBeenCalledWith({
     video: { facingMode: { ideal: "environment" } },
@@ -52,7 +51,6 @@ it("stops a stream granted after the screen unmounts", async () => {
     }),
   );
   const view = render(<CameraHarness />);
-  fireEvent.click(screen.getByText("Start"));
   view.unmount();
   await act(async () => grant(stream));
   expect(stopTrack).toHaveBeenCalledOnce();
@@ -61,7 +59,6 @@ it("stops a stream granted after the screen unmounts", async () => {
 it("explains denied permission and can recover", async () => {
   getUserMedia.mockRejectedValueOnce(new DOMException("denied", "NotAllowedError"));
   render(<CameraHarness />);
-  fireEvent.click(screen.getByText("Start"));
   await screen.findByText(/Camera access was denied/);
   fireEvent.click(screen.getByText("Start"));
   await waitFor(() => expect(screen.getByText("ready")).toBeTruthy());

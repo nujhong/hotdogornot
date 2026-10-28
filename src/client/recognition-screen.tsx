@@ -146,14 +146,17 @@ export function RecognitionScreen() {
 
       <header className="camera-header">
         <a className="wordmark" href="/" aria-label="Hotdog or Not home">
-          hotdog or not<span>.</span>
+          <img src="/logo.svg" width="36" height="36" alt="" />
+          <span className="wordmark-text">
+            hotdog or not<span>.</span>
+          </span>
         </a>
         <details className="photo-info">
           <summary aria-label="About your photos">i</summary>
           <p>
-            Photos and object names are sent to Cloudflare and TypeSafe to check the subject. This
-            app keeps only the current photo in memory and saves no history. Provider processing
-            policies apply. Recognition is experimental and can be wrong.
+            Photos and object names are sent to Cloudflare to check the subject. This app keeps only
+            the current photo in memory and saves no history. Provider processing policies apply.
+            Recognition is experimental and can be wrong.
           </p>
         </details>
       </header>
@@ -243,9 +246,11 @@ export function RecognitionScreen() {
               aria-label={
                 camera.status === "ready"
                   ? "Take photo"
-                  : camera.status === "error"
-                    ? "Try camera again"
-                    : "Open camera"
+                  : camera.status === "starting"
+                    ? "Opening camera"
+                    : camera.status === "error"
+                      ? "Try camera again"
+                      : "Open camera"
               }
             >
               <span />
@@ -265,7 +270,7 @@ export function RecognitionScreen() {
           <p className="input-error">Enter an object name to take a photo.</p>
         )}
         {camera.status !== "ready" && !capture && !busy && (
-          <p className="processing-note">Photos are processed by Cloudflare &amp; TypeSafe.</p>
+          <p className="processing-note">Photos are processed by Cloudflare.</p>
         )}
       </div>
     </main>

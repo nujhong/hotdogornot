@@ -8,11 +8,15 @@ export default defineConfig({
   cloudflare: {
     name: "hotdogornot",
     account_id: "ac6ec0b998d8eb9a92746d8dd276bdf0",
+    workers_dev: true,
+    preview_urls: true,
+    routes: [],
     observability: { enabled: true, traces: { enabled: true } },
   },
   head: {
     title: "Hotdog or Not — one photo, one answer",
     htmlAttrs: { lang: "en" },
+    link: [{ rel: "icon", href: "/logo.svg" }],
     meta: [
       { name: "viewport", content: "width=device-width, initial-scale=1" },
       { name: "description", content: "Name an object. Take a photo. Get a yes or a no." },

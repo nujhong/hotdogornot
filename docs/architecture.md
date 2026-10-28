@@ -2,16 +2,18 @@
 
 One React screen captures one photo for one object name. Void serves the screen and a synchronous recognition endpoint on Cloudflare Workers. There is no persistence or queue.
 
+The camera hook requests video access when the screen mounts, using the browser's native permission flow. It releases media on capture or exit and ignores late permission results after cleanup. The shutter starts each photo check; opening the camera does not submit a photo.
+
 ## Ownership
 
-| Area       | Responsibility                                           | Application dependencies |
-| ---------- | -------------------------------------------------------- | ------------------------ |
-| Pages      | Framework entry points                                   | Client, shared           |
-| Routes     | Validation, configuration, HTTP errors                   | Server, shared           |
-| Middleware | Request body size before parsing                         | Shared                   |
-| Client     | Screen state, camera ownership, JPEG preparation         | Client, shared           |
-| Server     | Native Jev request, answer validation, binary conversion | Server, shared           |
-| Shared     | Browser-safe schema, limits, successful result type      | Shared                   |
+| Area       | Responsibility                                            | Application dependencies |
+| ---------- | --------------------------------------------------------- | ------------------------ |
+| Pages      | Framework entry points                                    | Client, shared           |
+| Routes     | Validation, configuration, HTTP errors                    | Server, shared           |
+| Middleware | Request body size before parsing                          | Shared                   |
+| Client     | Screen state, camera ownership, JPEG preparation          | Client, shared           |
+| Server     | Native Clef request, answer validation, binary conversion | Server, shared           |
+| Shared     | Browser-safe schema, limits, successful result type       | Shared                   |
 
 All application areas live under `src`, using Void's native source-directory configuration. Cross-directory imports use `~/`, and sibling imports use `./`. Vite+ owns formatting, lint, types, and tests; its lint rules enforce filename case and import restrictions. Configuration and conventional project documents stay at the repository root.
 
@@ -21,9 +23,9 @@ The screen snapshots the trimmed target and camera frame together, releases the 
 
 The shared schema bounds names to 80 characters, decoded images to 2 MiB, and middleware bounds the JSON body to 3 MiB before parsing. Canvas exports an upright JPEG with the whole frame, at most 1280 on its longest side, padding small dimensions to 280.
 
-The route owns the 20-second provider deadline. The server uses native `fetch` against Cloudflare's Workers AI HTTP endpoint, using the personal account and the app's own gateway and inference token. Jev receives one image asset and one Noul main-subject question. The completed response envelope was confirmed with a real provider call. Only finite values from zero through one are valid; values at least 0.5 match. Missing or malformed output is an error, never a negative verdict.
+The route owns the 20-second provider deadline. The server uses native `fetch` against Cloudflare's Workers AI HTTP endpoint, using the personal account and the app's own gateway and inference token. Clef-flash receives one embedded JPEG, a separate object-name state, and one Noul main-subject question. The native model-specific endpoint returns the answer in `result.answers`; this shape was confirmed with real provider calls. Only finite values from zero through one are valid; values at least 0.5 match. Missing or malformed output is an error, never a negative verdict.
 
-Cloudflare’s native HTTP API carries the experimental image header and the provider deadline. The runtime inference token is scoped to Workers AI invocation and AI Gateway execution in the personal account. Deployment credentials remain separate.
+Cloudflare’s native HTTP API carries the provider deadline. The runtime inference token is scoped to Workers AI invocation and AI Gateway execution in the personal account. Deployment credentials remain separate.
 
 The route returns 400 for invalid input, 413 for an excessive body, native 429 for a usage limit, 503 for missing configuration, 504 for the deadline, and 502 for provider/output failure. The browser waits at most 25 seconds and does not retry automatically.
 

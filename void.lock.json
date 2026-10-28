@@ -3,6 +3,9 @@
   "source": {
     "name": "hotdogornot",
     "account_id": "ac6ec0b998d8eb9a92746d8dd276bdf0",
+    "workers_dev": true,
+    "preview_urls": true,
+    "routes": [],
     "observability": {
       "enabled": true,
       "traces": {
@@ -13,6 +16,9 @@
   "resolved": {
     "name": "hotdogornot",
     "account_id": "ac6ec0b998d8eb9a92746d8dd276bdf0",
+    "workers_dev": true,
+    "preview_urls": true,
+    "routes": [],
     "observability": {
       "enabled": true,
       "traces": {
@@ -21,5 +27,5 @@
     },
     "compatibility_date": "2026-02-24"
   },
-  "text": "{\n  \"name\": \"hotdogornot\",\n  \"account_id\": \"ac6ec0b998d8eb9a92746d8dd276bdf0\",\n  \"observability\": {\n    \"enabled\": true,\n    \"traces\": {\n      \"enabled\": true\n    }\n  },\n  \"compatibility_date\": \"2026-02-24\"\n}\n"
+  "text": "{\n  \"name\": \"hotdogornot\",\n  \"account_id\": \"ac6ec0b998d8eb9a92746d8dd276bdf0\",\n  \"workers_dev\": true,\n  \"preview_urls\": true,\n  \"routes\": [],\n  \"observability\": {\n    \"enabled\": true,\n    \"traces\": {\n      \"enabled\": true\n    }\n  },\n  \"compatibility_date\": \"2026-02-24\"\n}\n"
 }
