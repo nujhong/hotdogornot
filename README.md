@@ -1,12 +1,42 @@
-# Hotdog or Not
+<div align="center">
+  <img src="docs/assets/logo.svg" width="72" height="72" alt="">
+  <h1>hotdogornot</h1>
+  <p><strong>One photo. Two possible answers.</strong></p>
+  <p>Hotdog or not. Mug or not. You pick the object.</p>
+  <p>
+    <a href="https://hotdogornot.nujhong.workers.dev">Try it on your phone</a> ·
+    <a href="#how-it-works">How it works</a> ·
+    <a href="#run-locally">Run locally</a>
+  </p>
+</div>
 
-Name an object. Take a photo. Get a yes or a no.
+## 🛠️ Stack
 
-[Open the app](https://hotdogornot.nujhong.workers.dev).
+- **[Void](https://void.cloud)** — The full-stack foundation, serving the camera app and recognition API on Cloudflare Workers.
+- **[Jev-style decisions, powered by Clef](https://developers.cloudflare.com/workers-ai/models/clef-flash/)** — Checks whether the photo's main subject matches the object you named.
+- **[Cloudflare AI Gateway](https://developers.cloudflare.com/ai-gateway/)** — Routes model requests with caching and request logging disabled.
+- **[React](https://react.dev)** — The viewfinder, shutter and verdict, with TypeScript and plain CSS.
+- **[Vite+](https://viteplus.dev)** — Development, builds, formatting, lint and tests, managed with pnpm.
 
-A personal hobby app inspired by the original _Silicon Valley_ gag, with one extra trick: change “hotdog” to any object name. It judges the main photographed subject, not incidental objects in the background. Every completed check is binary; a failed request remains an error.
+## 🌭 Why this exists
 
-Built with the same Void, React, TypeScript, Vite+, pnpm, and Cloudflare foundation as HashtagConnect. The source is organized around browser, server, shared-contract, and framework-entry responsibilities, with enforced filename and import conventions.
+Inspired by _Silicon Valley_'s hotdog-or-not gag, with one extra trick: you choose the object. Start with a hotdog, change it to a mug, then point the camera at whatever is in front of you.
+
+## How it works
+
+| ✏️ Name it                                                  | 📷 Frame it                                                             | ✓ Get the verdict                                                                    |
+| :---------------------------------------------------------- | :---------------------------------------------------------------------- | :----------------------------------------------------------------------------------- |
+| Keep **hotdog**, or type another object in **Looking for**. | Open the camera, fill the frame with your subject, and tap the shutter. | Get **hotdog** or **Not hotdog**, right on your photo. Change the name and go again. |
+
+The camera fills the screen. Each tap checks one photo against one name. The answer concerns the main subject; a mug sitting in the background doesn't make a laptop a mug.
+
+**Status:** a personal side project. Recognition is experimental and can be wrong.
+
+**Built by AI agents, steered by a human.** Developed with Codex; logo by Claude. Product direction and final decisions stay human.
+
+## Your photos
+
+Each check sends the photo and object name to Cloudflare. The app keeps only your current photo in browser memory and saves no gallery or history. See [Cloudflare's data policy](https://developers.cloudflare.com/workers-ai/platform/data-usage/) for provider processing.
 
 ## Run locally
 
@@ -18,36 +48,16 @@ cp env.example .env
 pnpm run dev
 ```
 
-Open **http://127.0.0.1:5174**. The separate port allows HashtagConnect to run alongside it. Copy `env.example` before starting. Automated tests mock the provider; real recognition needs the setup below.
+Open **http://127.0.0.1:5174**. Fill in the three Cloudflare inference values in [env.example](env.example) to enable recognition, then restart the server. For phone testing, use the [live HTTPS app](https://hotdogornot.nujhong.workers.dev); camera access won't work over a plain HTTP LAN address.
 
-### Enable recognition
+Before committing code, run `pnpm run check`, `pnpm test`, and `pnpm run build`. Automated tests use mocked model responses. Deployment and credential setup live in the [deployment guide](docs/deployment.md).
 
-Fill the three server-side values in `.env`: `CLOUDFLARE_ACCOUNT_ID`, `CLOUDFLARE_AI_GATEWAY_ID`, and `CLOUDFLARE_AI_GATEWAY_TOKEN`. Use a Cloudflare account with an AI Gateway and a token authorized for its Workers AI inference. Use this app’s own `hotdogornot-ai` gateway and inference token in your personal account. Restart the development server after changing configuration.
+## More
 
-Recognition uses Cloudflare's HTTP API with the existing token, so local inference does not require a separate browser sign-in. Deployment is a separate step using Void's Cloudflare deployment workflow and suitable deployment credentials. Local configuration is ignored by Git; never commit real credentials. Set each deployed value with `void secret put <NAME>` and verify names with `void secret list`; the installed Void 1.2.1 bulk-sync command is incompatible with the Cloudflare CLI’s request shape.
-
-Clef-flash uses the account’s shared Workers AI allowance, currently [10,000 Neurons per day](https://developers.cloudflare.com/workers-ai/platform/pricing/). It does not require third-party gateway credit.
-
-Camera access requires HTTPS or a permitted localhost origin. A phone visiting your computer's plain HTTP LAN address cannot use its camera; use an HTTPS development origin for device testing.
-
-## Check changes
-
-```sh
-pnpm run check
-pnpm test
-pnpm run build
-```
-
-CI runs the same commands with a frozen dependency lockfile. Tests exercise contracts, provider failures, HTTP handling, image preparation, camera cleanup, and capture/name association. Automated tests do not contact the model.
-
-## Photos and limitations
-
-The current photo stays in browser memory until retaken or the page closes. The app has no accounts, saved gallery, or recognition history. Each check sends the prepared JPEG and chosen object name to Cloudflare’s Clef-flash model. Gateway caching, request logging and Logpush are disabled for this deployment. Cloudflare’s [Workers AI data policy](https://developers.cloudflare.com/workers-ai/platform/data-usage/) describes provider processing.
-
-[Clef-flash](https://developers.cloudflare.com/workers-ai/models/clef-flash/) uses Jev-style structured questions. Recognition can be wrong. The app converts the model's Noul answer to a binary result at 0.5, including an exact tie as a match. It does not display an accuracy percentage. See the [research](docs/research/object-recognition.md) and [verification record](docs/verification.md) for evidence and outstanding checks.
-
-## Contribute
-
-Start with [CONTRIBUTING.md](CONTRIBUTING.md) and [architecture](docs/architecture.md). [AGENTS.md](AGENTS.md) gives coding agents the same rules. The [design](docs/designs/recognition.md) records the agreed behavior and implementation rationale.
-
-“Hotdog or Not” is the display name; `hotdogornot` is the repository and Worker name. The source is published at [nujhong/hotdogornot](https://github.com/nujhong/hotdogornot). A license has not yet been selected. No affiliation with the television series is implied.
+- [AGENTS.md](AGENTS.md): project conventions for agents and people alike
+- [DESIGN.md](DESIGN.md): how the camera, controls and verdict should look and feel
+- [Architecture](docs/architecture.md): module ownership and the recognition flow
+- [Contributing](CONTRIBUTING.md): naming, checks and Git workflow
+- [Deployment](docs/deployment.md): Cloudflare setup, secrets and device testing
+- [Verification](docs/verification.md): automated checks and live recognition results
+- [Research](docs/research/object-recognition.md): the decisions behind the experiment

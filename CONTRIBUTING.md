@@ -4,7 +4,7 @@ Read the [architecture](docs/architecture.md) before changing a responsibility o
 
 ## Place a change
 
-Keep routes and pages thin. Put UI/camera work in the client, Jev evaluation in the server, and shared request validation in the shared layer. A file's name describes its responsibility in kebab-case; component/type names use PascalCase, and functions/values use camelCase. Use `~/` across directories and relative imports between siblings. The alias means the source root.
+Keep routes and pages thin. Put UI/camera work in the client, Clef evaluation in the server, and shared request validation in the shared layer. A file's name describes its responsibility in kebab-case; component/type names use PascalCase, and functions/values use camelCase. Use `~/` across directories and relative imports between siblings. The alias means the source root.
 
 Add a new component or folder when it has an independent responsibility. Keep tests next to their owner, with HTTP/cross-module tests under the root integration directory. Test user-visible behavior and boundary failures. Do not snapshot prompt wording or call a paid model from an automated test.
 
