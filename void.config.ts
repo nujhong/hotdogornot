@@ -21,6 +21,16 @@ export default defineConfig({
       { name: "viewport", content: "width=device-width, initial-scale=1" },
       { name: "description", content: "Name an object. Take a photo. Get a yes or a no." },
       { name: "theme-color", content: "#111310" },
+      { property: "og:type", content: "website" },
+      { property: "og:url", content: "https://hotdogornot.nujhong.workers.dev/" },
+      { property: "og:title", content: "Hotdog or Not — one photo, one answer" },
+      { property: "og:description", content: "Name an object. Take a photo. Get a yes or a no." },
+      // Crawlers need an absolute raster URL; SVG previews are not widely supported.
+      { property: "og:image", content: "https://hotdogornot.nujhong.workers.dev/og-image.png" },
+      { property: "og:image:width", content: "1200" },
+      { property: "og:image:height", content: "630" },
+      { property: "og:image:alt", content: "The hotdog or not. logo and wordmark" },
+      { name: "twitter:card", content: "summary_large_image" },
     ],
   },
   routing: {
